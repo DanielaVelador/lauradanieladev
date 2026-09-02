@@ -8,6 +8,7 @@ import CurrentlyStrip from "./shared/CurrentlyStrip";
 export default function Hero({ reduced }) {
   const [selected, setSelected] = useState(null);
   const [learnHover, setLearnHover] = useState(false);
+  const [hoverId, setHoverId] = useState(null);
   const facet = selected ? FACETS[selected] : null;
 
   const headlineStyle = {
@@ -36,7 +37,7 @@ export default function Hero({ reduced }) {
               {facet.lines.map((l, i) => (
                 <h1 key={i} style={headlineStyle}>{l}</h1>
               ))}
-              <p style={{ fontFamily: FONT_MONO, fontSize: 13, color: C.accent, marginTop: 14 }}>
+              <p style={{ fontFamily: FONT_MONO, fontSize: 13, color: C.inkSoft, marginTop: 14 }}>
                 {facet.tag}
               </p>
             </motion.div>
@@ -92,25 +93,36 @@ export default function Hero({ reduced }) {
         </AnimatePresence>
       </div>
 
-      <div className="mt-10 flex flex-wrap gap-3">
-        {["developer", "teacher", "community"].map((id) => (
-          <button
-            key={id}
-            onClick={() => setSelected(selected === id ? null : id)}
-            aria-pressed={selected === id}
-            style={{
-              fontFamily: FONT_MONO,
-              fontSize: 13,
-              color: selected === id ? "#fff" : C.ink,
-              background: selected === id ? C.accent : "transparent",
-              border: `1px solid ${selected === id ? C.accent : C.line}`,
-              padding: "8px 14px",
-              transition: reduced ? "none" : "all 0.15s ease",
-            }}
-          >
-            [ {id === "community" ? "community builder" : id} ]
-          </button>
-        ))}
+      <p style={{ fontFamily: FONT_MONO, fontSize: 12, color: C.inkFaint, marginTop: 40 }}>
+        explore a side of me →
+      </p>
+      <div className="mt-3 flex flex-wrap gap-3">
+        {["developer", "teacher", "community"].map((id) => {
+          const isSelected = selected === id;
+          const isHovered = hoverId === id;
+          return (
+            <button
+              key={id}
+              onClick={() => setSelected(isSelected ? null : id)}
+              onMouseEnter={() => setHoverId(id)}
+              onMouseLeave={() => setHoverId(null)}
+              aria-pressed={isSelected}
+              style={{
+                fontFamily: FONT_MONO,
+                fontSize: 13,
+                color: isSelected ? "#fff" : isHovered ? C.accent : C.ink,
+                background: isSelected ? C.accent : "transparent",
+                border: `1px solid ${isSelected || isHovered ? C.accent : C.line}`,
+                padding: "8px 14px",
+                transform: isHovered && !isSelected && !reduced ? "translateY(-2px)" : "translateY(0)",
+                boxShadow: isHovered && !isSelected && !reduced ? "0 4px 10px rgba(54,84,255,0.15)" : "none",
+                transition: reduced ? "none" : "all 0.15s ease",
+              }}
+            >
+              [ {id === "community" ? "community builder" : id} ]
+            </button>
+          );
+        })}
       </div>
 
       <CurrentlyStrip reduced={reduced} />

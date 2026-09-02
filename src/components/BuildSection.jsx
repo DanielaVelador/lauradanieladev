@@ -76,7 +76,10 @@ export default function BuildSection({ reduced }) {
                         <div><p style={{ fontFamily: FONT_MONO, fontSize: 11, color: C.ink }}>THE PROBLEM</p><p>{p.problem}</p></div>
                         <div><p style={{ fontFamily: FONT_MONO, fontSize: 11, color: C.ink }}>MY ROLE</p><p>{p.role}</p></div>
                         <div><p style={{ fontFamily: FONT_MONO, fontSize: 11, color: C.ink }}>THE APPROACH</p><p>{p.approach}</p></div>
-                        <div><p style={{ fontFamily: FONT_MONO, fontSize: 11, color: C.ink }}>THE RESULT</p><p>{p.result}</p></div>
+                        {p.why && (
+                          <div><p style={{ fontFamily: FONT_MONO, fontSize: 11, color: C.ink }}>WHY THIS APPROACH?</p><p>{p.why}</p></div>
+                        )}
+                        <div className="md:col-span-2"><p style={{ fontFamily: FONT_MONO, fontSize: 11, color: C.ink }}>THE RESULT</p><p>{p.result}</p></div>
                       </div>
 
                       <button

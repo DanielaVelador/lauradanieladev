@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import "../fonts.css";
 import { useReducedMotion } from "../hooks/useReducedMotion";
 import Nav from "./Nav";
 import Hero from "./Hero";

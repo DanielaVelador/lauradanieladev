@@ -6,6 +6,7 @@ import { LIKES } from "../data/likes";
 
 export default function Nav({ likesOpen, setLikesOpen }) {
   const [active, setActive] = useState("");
+  const [hintHover, setHintHover] = useState(false);
 
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -31,28 +32,58 @@ export default function Nav({ likesOpen, setLikesOpen }) {
       }}
       className="w-full"
     >
-      <div className="max-w-5xl mx-auto flex items-center justify-between px-6 py-4">
-        <div className="flex items-center gap-3">
+      <div className="max-w-5xl mx-auto flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 px-6 py-4">
+        <div className="flex items-center gap-3" style={{ position: "relative" }}>
           <a href="#top" style={{ fontFamily: FONT_MONO, color: C.ink, fontSize: 13 }}>
-            dany.dev
+            lauradaniela.dev
           </a>
           <button
             onClick={() => setLikesOpen(!likesOpen)}
+            onMouseEnter={() => setHintHover(true)}
+            onMouseLeave={() => setHintHover(false)}
+            onFocus={() => setHintHover(true)}
+            onBlur={() => setHintHover(false)}
             aria-label="things I like"
             style={{
               fontFamily: FONT_MONO,
               fontSize: 12,
-              color: likesOpen ? C.accent : C.inkFaint,
-              border: `1px solid ${C.line}`,
+              color: likesOpen || hintHover ? C.accent : C.inkFaint,
+              border: `1px solid ${likesOpen || hintHover ? C.accent : C.line}`,
               width: 22,
               height: 22,
               lineHeight: 1,
+              transition: "all 0.15s ease",
             }}
           >
             ?
           </button>
+          <AnimatePresence>
+            {hintHover && !likesOpen && (
+              <motion.span
+                initial={{ opacity: 0, y: -2 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0 }}
+                transition={{ duration: 0.12 }}
+                style={{
+                  position: "absolute",
+                  left: 0,
+                  top: 30,
+                  whiteSpace: "nowrap",
+                  fontFamily: FONT_MONO,
+                  fontSize: 11,
+                  color: C.inkFaint,
+                  background: C.paper,
+                  border: `1px solid ${C.line}`,
+                  padding: "3px 8px",
+                  zIndex: 45,
+                }}
+              >
+                things I like
+              </motion.span>
+            )}
+          </AnimatePresence>
         </div>
-        <ul className="flex gap-5">
+        <ul className="flex flex-wrap gap-5">
           {NAV.map((n) => (
             <li key={n.id}>
               <a
@@ -80,7 +111,7 @@ export default function Nav({ likesOpen, setLikesOpen }) {
             transition={{ duration: 0.15 }}
             style={{
               position: "absolute",
-              top: 52,
+              top: "100%",
               left: 24,
               background: C.paper,
               border: `1px solid ${C.line}`,

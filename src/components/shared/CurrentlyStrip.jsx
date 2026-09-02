@@ -21,7 +21,7 @@ export default function CurrentlyStrip({ reduced }) {
     >
       {CURRENTLY.map((c, idx) => (
         <p key={c.label} style={{ fontFamily: FONT_MONO, fontSize: 11, color: C.inkFaint }}>
-          {c.label} <span style={{ color: C.accent }}>→</span>{" "}
+          {c.label} <span style={{ color: C.inkFaint }}>→</span>{" "}
           <AnimatePresence mode="wait">
             <motion.span
               key={c.values[indices[idx]]}

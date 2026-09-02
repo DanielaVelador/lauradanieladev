@@ -5,8 +5,8 @@ import { scrollTo } from "../../utils/scrollTo";
 
 export default function FacetHeader({ label, lines, cta, ctaTarget }) {
   return (
-    <div style={{ borderLeft: `3px solid ${C.accent}`, paddingLeft: 18, marginBottom: 28 }}>
-      <p style={{ fontFamily: FONT_MONO, fontSize: 13, color: C.accent }}>{label}</p>
+    <div style={{ borderLeft: `3px solid ${C.ink}`, paddingLeft: 18, marginBottom: 28 }}>
+      <p style={{ fontFamily: FONT_MONO, fontSize: 13, color: C.inkSoft, letterSpacing: "0.04em" }}>{label}</p>
       <p style={{ fontFamily: FONT_DISPLAY, fontSize: 22, color: C.ink, marginTop: 10, fontWeight: 600 }}>
         {lines[0]}
       </p>

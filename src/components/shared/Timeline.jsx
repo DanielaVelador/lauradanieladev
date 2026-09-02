@@ -18,7 +18,7 @@ export default function Timeline({ reduced }) {
             className="flex items-baseline gap-4"
             style={{ padding: "10px 0", borderBottom: i < TIMELINE.length - 1 ? `1px solid ${C.line}` : "none" }}
           >
-            <span style={{ fontFamily: FONT_MONO, fontSize: 13, color: C.accent }}>{t.n}</span>
+            <span style={{ fontFamily: FONT_MONO, fontSize: 13, color: C.inkFaint }}>{t.n}</span>
             <span style={{ fontFamily: FONT_MONO, fontSize: 14, color: C.ink }}>{t.label}</span>
           </div>
         ))}

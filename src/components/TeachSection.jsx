@@ -6,7 +6,7 @@ import SectionEyebrow from "./shared/SectionEyebrow";
 import FacetHeader from "./shared/FacetHeader";
 
 export default function TeachSection({ reduced }) {
-  const [openTerm, setOpenTerm] = useState(null);
+  const [openTerm, setOpenTerm] = useState(TEACH_TERMS[0]?.term ?? null);
   const active = TEACH_TERMS.find((t) => t.term === openTerm);
 
   return (
@@ -52,7 +52,7 @@ export default function TeachSection({ reduced }) {
               {active.term.toUpperCase()}
             </p>
             <p style={{ fontFamily: FONT_MONO, fontSize: 14, color: C.inkSoft, marginTop: 6, lineHeight: 1.6 }}>
-              {active.before} <span style={{ color: C.accent }}>→</span><br />{active.after}
+              {active.before} <span style={{ color: C.inkFaint }}>→</span><br />{active.after}
             </p>
           </motion.div>
         )}

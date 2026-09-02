@@ -17,7 +17,7 @@ export default function ProjectPreview({ project }) {
           width={Math.min(80, t.length * 6)}
           height="18"
           fill="none"
-          stroke={C.accent}
+          stroke={C.inkFaint}
           strokeWidth="1"
         />
       ))}
