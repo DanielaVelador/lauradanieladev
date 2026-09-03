@@ -2,6 +2,18 @@ import React from "react";
 import { C } from "../../theme";
 
 export default function ProjectPreview({ project }) {
+  if (project.image) {
+    return (
+      <div style={{ background: C.paperSoft, overflow: "hidden" }}>
+        <img
+          src={project.image}
+          alt={`Preview of ${project.title}`}
+          style={{ width: "100%", height: 220, objectFit: "cover", display: "block" }}
+        />
+      </div>
+    );
+  }
+
   return (
     <svg width="100%" height="140" viewBox="0 0 400 140" preserveAspectRatio="none" style={{ display: "block" }}>
       <rect x="0" y="0" width="400" height="140" fill={C.paperSoft} />
@@ -17,7 +29,7 @@ export default function ProjectPreview({ project }) {
           width={Math.min(80, t.length * 6)}
           height="18"
           fill="none"
-          stroke={C.inkFaint}
+          stroke={C.accent}
           strokeWidth="1"
         />
       ))}
