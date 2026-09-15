@@ -1,137 +1,93 @@
 import React, { useState, useEffect } from "react";
-import { AnimatePresence, motion } from "framer-motion";
-import { C, FONT_BODY, FONT_MONO } from "../theme";
+import { C, FONT_MONO, FONT_BODY, FONT_SERIF } from "../theme";
 import { NAV } from "../data/nav";
-import { LIKES } from "../data/likes";
 
-export default function Nav({ likesOpen, setLikesOpen }) {
-  const [active, setActive] = useState("");
-  const [hintHover, setHintHover] = useState(false);
+export default function Nav() {
+  const [isOpen, setIsOpen] = useState(false);
 
   useEffect(() => {
-    const observer = new IntersectionObserver(
-      (entries) => entries.forEach((e) => e.isIntersecting && setActive(e.target.id)),
-      { rootMargin: "-45% 0px -50% 0px" }
-    );
-    NAV.forEach((n) => {
-      const el = document.getElementById(n.id);
-      if (el) observer.observe(el);
-    });
-    return () => observer.disconnect();
-  }, []);
+    if (isOpen) {
+      document.body.style.overflow = "hidden";
+    } else {
+      document.body.style.overflow = "auto";
+    }
+    return () => {
+      document.body.style.overflow = "auto";
+    };
+  }, [isOpen]);
 
   return (
-    <nav
-      style={{
-        position: "sticky",
-        top: 0,
-        zIndex: 40,
-        background: `${C.paper}E6`,
-        backdropFilter: "blur(12px)",
-        //borderBottom: `1px solid ${C.line}`,
-      }}
-      className="w-full"
-    >
-      <div className="max-w-5xl mx-auto flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 px-6 py-4">
-        <div className="flex items-center gap-3" style={{ position: "relative" }}>
-          <a href="#top" style={{ fontFamily: FONT_BODY, color: C.ink, fontSize: 13 }}>
-            lauradaniela.dev
-          </a>
-          {/*<button
-            onClick={() => setLikesOpen(!likesOpen)}
-            onMouseEnter={() => setHintHover(true)}
-            onMouseLeave={() => setHintHover(false)}
-            onFocus={() => setHintHover(true)}
-            onBlur={() => setHintHover(false)}
-            aria-label="things I like"
-            style={{
-              fontFamily: FONT_MONO,
-              fontSize: 12,
-              color: likesOpen || hintHover ? C.accent : C.inkFaint,
-              border: `1px solid ${likesOpen || hintHover ? C.accent : C.line}`,
-              width: 22,
-              height: 22,
-              lineHeight: 1,
-              transition: "all 0.15s ease",
-            }}
-          >
-            ?
-          </button> */}
-          <AnimatePresence>
-            {hintHover && !likesOpen && (
-              <motion.span
-                initial={{ opacity: 0, y: -2 }}
-                animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0 }}
-                transition={{ duration: 0.12 }}
-                style={{
-                  position: "absolute",
-                  left: 0,
-                  top: 30,
-                  whiteSpace: "nowrap",
-                  fontFamily: FONT_MONO,
-                  fontSize: 11,
-                  color: C.inkFaint,
-                  background: C.paper,
-                  border: `1px solid ${C.line}`,
-                  padding: "3px 8px",
-                  zIndex: 45,
-                }}
-              >
-                things I like
-              </motion.span>
-            )}
-          </AnimatePresence>
-        </div>
-        <ul className="flex flex-wrap gap-5">
-          {NAV.map((n) => (
-            <li key={n.id}>
-              <a
+    <>
+      {/* 1. BARRA SUPERIOR (Más espacio en los bordes con md:px-16 lg:px-20) */}
+      <nav 
+        className="fixed top-0 left-0 w-full z-[60] px-8 py-8 md:px-16 lg:px-20 flex justify-between items-center backdrop-blur-sm"
+        style={{ backgroundColor: `${C.paper}99` }}
+      >
+        <a 
+          href="#top" 
+          className="text-sm tracking-wide"
+          style={{ fontFamily: FONT_BODY, color: C.ink }}
+        >
+          lauradaniela.dev
+        </a>
+
+        <button 
+          onClick={() => setIsOpen(!isOpen)}
+          className="relative w-8 h-8 flex flex-col justify-center items-center gap-1.5 focus:outline-none"
+          aria-label="Toggle Menu"
+        >
+          <span className={`block w-7 h-0.5 transition-all duration-300 ease-out ${isOpen ? 'rotate-45 translate-y-2' : ''}`} style={{ backgroundColor: C.ink }}></span>
+          <span className={`block w-7 h-0.5 transition-all duration-300 ease-out ${isOpen ? 'opacity-0' : ''}`} style={{ backgroundColor: C.ink }}></span>
+          <span className={`block w-7 h-0.5 transition-all duration-300 ease-out ${isOpen ? '-rotate-45 -translate-y-2' : ''}`} style={{ backgroundColor: C.ink }}></span>
+        </button>
+      </nav>
+
+      {/* 2. OVERLAY (Fondo oscuro desenfocado para cerrar al hacer clic fuera) */}
+      <div 
+        className={`fixed inset-0 z-[40] bg-white/20 backdrop-blur-sm transition-opacity duration-300 ${
+          isOpen ? "opacity-100 visible" : "opacity-0 invisible pointer-events-none"
+        }`}
+        onClick={() => setIsOpen(false)}
+      />
+
+      {/* 3. PANEL LATERAL (100% en móvil, 45% en escritorio) */}
+      <div 
+        className={`fixed top-0 right-0 bottom-0 z-[50] w-full md:w-[45%] lg:w-[40%] flex flex-col justify-center items-center transition-transform duration-500 ease-in-out shadow-2xl ${
+          isOpen ? "translate-x-0" : "translate-x-full"
+        }`}
+        style={{ backgroundColor: `${C.paper}F2` }}
+      >
+        <ul className="flex flex-col items-center gap-8 text-center">
+          {NAV.map((n, index) => (
+            <li 
+              key={n.id}
+              style={{ 
+                transitionDelay: isOpen ? `${index * 50 + 200}ms` : '0ms',
+                transform: isOpen ? 'translateY(0)' : 'translateY(20px)',
+                opacity: isOpen ? 1 : 0,
+                transitionProperty: 'all',
+                transitionDuration: '500ms'
+              }}
+            >
+              <a 
                 href={`#${n.id}`}
-                style={{
-                  fontFamily: FONT_BODY,
-                  fontSize: 12,
-                  color: active === n.id ? C.ink : C.inkSoft,
-                  borderBottom: active === n.id ? `2px solid ${C.accent}` : "2px solid transparent",
-                  paddingBottom: 2,
-                }}
+                onClick={() => setIsOpen(false)}
+                className="text-4xl hover:opacity-50 transition-opacity"
+                style={{ fontFamily: FONT_SERIF, fontStyle: "italic", color: C.ink }}
               >
                 {n.label}
               </a>
             </li>
           ))}
         </ul>
+        
+        <div 
+          className="absolute bottom-10 opacity-60"
+          style={{ fontFamily: FONT_MONO, fontSize: 12, color: C.inkSoft }}
+        >
+          hola@lauradaniela.dev
+        </div>
       </div>
-      <AnimatePresence>
-        {likesOpen && (
-          <motion.div
-            initial={{ opacity: 0, y: -6 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -6 }}
-            transition={{ duration: 0.15 }}
-            style={{
-              position: "absolute",
-              top: "100%",
-              left: 24,
-              background: C.paper,
-              border: `1px solid ${C.line}`,
-              padding: "16px 20px",
-              zIndex: 50,
-              boxShadow: "0 6px 20px rgba(0,0,0,0.08)",
-            }}
-          >
-            <p style={{ fontFamily: FONT_MONO, fontSize: 11, color: C.inkFaint, marginBottom: 8 }}>
-              things I like
-            </p>
-            {LIKES.map((l, i) => (
-              <p key={l} style={{ fontFamily: FONT_MONO, fontSize: 13, color: C.ink, marginTop: 4 }}>
-                <span style={{ color: C.accent }}>0{i + 1} — </span>
-                {l}
-              </p>
-            ))}
-          </motion.div>
-        )}
-      </AnimatePresence>
-    </nav>
+    </>
   );
 }
