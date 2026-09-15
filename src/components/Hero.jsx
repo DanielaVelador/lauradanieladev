@@ -1,131 +1,156 @@
-import React, { useState } from "react";
-import { AnimatePresence, motion } from "framer-motion";
-import { C, FONT_DISPLAY, FONT_MONO } from "../theme";
-import { FACETS, LEARN_WORDS } from "../data/facets";
-import SectionEyebrow from "./shared/SectionEyebrow";
+import React, { useState, useEffect } from "react";
+import { C, FONT_SERIF, FONT_BODY, FONT_MONO } from "../theme";
+import { ABOUT, ROLES, PROYECTO_ADA } from "../data/about";
+import heroPhoto from "../assets/hero.png";
+import profilePhoto from "../assets/dany-b.png";
 import CurrentlyStrip from "./shared/CurrentlyStrip";
 
 export default function Hero({ reduced }) {
-  const [selected, setSelected] = useState(null);
-  const [learnHover, setLearnHover] = useState(false);
-  const [hoverId, setHoverId] = useState(null);
-  const facet = selected ? FACETS[selected] : null;
+  const [displayedText, setDisplayedText] = useState("");
+  const fullText = ABOUT.tagline;
 
-  const headlineStyle = {
-    fontFamily: FONT_DISPLAY,
-    color: C.ink,
-    fontSize: "clamp(2.2rem, 6vw, 3.8rem)",
-    lineHeight: 1.08,
-    fontWeight: 600,
-    letterSpacing: "-0.01em",
-  };
-
+  useEffect(() => {
+    let currentIndex = 0;
+    setDisplayedText("");
+    const typingInterval = setInterval(() => {
+      if (currentIndex < fullText.length) {
+        setDisplayedText(fullText.slice(0, currentIndex + 1));
+        currentIndex++;
+      } else {
+        clearInterval(typingInterval);
+      }
+    }, 35);
+    return () => clearInterval(typingInterval);
+  }, [fullText]);
   return (
-    <section id="top" className="max-w-5xl mx-auto px-6 pt-24 pb-20">
-      <SectionEyebrow n="00" label="WHO AM I?" />
-
-      <div style={{ minHeight: "clamp(9rem, 20vw, 12rem)" }}>
-        <AnimatePresence mode="wait">
-          {facet ? (
-            <motion.div
-              key={selected}
-              initial={reduced ? {} : { opacity: 0, y: 4 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={reduced ? {} : { opacity: 0, y: -4 }}
-              transition={{ duration: 0.15 }}
-            >
-              {facet.lines.map((l, i) => (
-                <h1 key={i} style={headlineStyle}>{l}</h1>
-              ))}
-              <p style={{ fontFamily: FONT_MONO, fontSize: 13, color: C.inkSoft, marginTop: 14 }}>
-                {facet.tag}
-              </p>
-            </motion.div>
-          ) : (
-            <motion.div
-              key="default"
-              initial={reduced ? {} : { opacity: 0, y: 4 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={reduced ? {} : { opacity: 0, y: -4 }}
-              transition={{ duration: 0.15 }}
-            >
-              <h1 style={headlineStyle}>I build.</h1>
-              <h1 style={headlineStyle}>I teach.</h1>
-              <h1 style={headlineStyle}>
-                I create spaces where others can{" "}
-                <span
-                  onMouseEnter={() => setLearnHover(true)}
-                  onMouseLeave={() => setLearnHover(false)}
-                  onFocus={() => setLearnHover(true)}
-                  onBlur={() => setLearnHover(false)}
-                  tabIndex={0}
-                  style={{ borderBottom: `2px solid ${C.accent}`, cursor: "default" }}
-                >
-                  learn.
-                </span>
-              </h1>
-              <div style={{ height: 26, marginTop: 6 }}>
-                <AnimatePresence>
-                  {learnHover && (
-                    <motion.div
-                      initial={reduced ? {} : { opacity: 0 }}
-                      animate={{ opacity: 1 }}
-                      exit={reduced ? {} : { opacity: 0 }}
-                      className="flex gap-3 flex-wrap"
-                    >
-                      {LEARN_WORDS.map((w, i) => (
-                        <motion.span
-                          key={w}
-                          initial={reduced ? {} : { opacity: 0, y: 4 }}
-                          animate={{ opacity: 1, y: 0 }}
-                          transition={{ delay: reduced ? 0 : i * 0.06 }}
-                          style={{ fontFamily: FONT_MONO, fontSize: 13, color: C.inkSoft }}
-                        >
-                          {w}
-                        </motion.span>
-                      ))}
-                    </motion.div>
-                  )}
-                </AnimatePresence>
-              </div>
-            </motion.div>
-          )}
-        </AnimatePresence>
+    <header id="top" className="max-w-5xl mx-auto px-6 pt-20 pb-16 relative">
+      <div
+        className="sticker absolute top-2 right-2 md:top-10 md:right-10 rotate-6 px-4 py-2 rounded-full"
+        style={{ fontFamily: FONT_MONO, fontSize: 12, color: C.inkSoft }}
+      >
+        📍 {ABOUT.location}
+      </div>
+      <div className="block md:hidden mb-6" style={{ width: "clamp(140px, 45vw, 220px)" }}>
+        <img
+          src={profilePhoto}
+          alt="Laura Daniela"
+          className="w-full h-auto"
+          style={{ display: "block" }}
+        />
+      </div>
+      <div
+        className="absolute hidden md:block"
+        style={{
+          top: "8%",
+          right: "18%",
+          width: "clamp(140px, 16vw, 240px)",
+        }}
+      >
+        <img
+          src={profilePhoto}
+          alt="Laura Daniela"
+          className="w-full h-auto"
+          style={{ display: "block" }}
+        />
       </div>
 
-      <p style={{ fontFamily: FONT_MONO, fontSize: 12, color: C.inkFaint, marginTop: 40 }}>
-        explore a side of me →
+      <h1 style={{ fontFamily: FONT_SERIF, fontSize: "clamp(2.6rem, 7vw, 5rem)", lineHeight: 1.05, color: C.ink }}>
+        Laura Daniela
+        <br />
+        <span style={{ fontStyle: "italic", color: C.inkSoft }}>Software Engineer.</span>
+      </h1>
+
+      <p
+        style={{
+          fontFamily: FONT_BODY,
+          fontSize: 18,
+          color: C.inkSoft,
+          maxWidth: 620,
+          marginTop: 24,
+          lineHeight: 1.6,
+          minHeight: "60px",
+        }}
+      >
+        {displayedText}
+        {/* Cursor parpadeante simulado con Tailwind */}
+        <span className="animate-pulse inline-block ml-1 [animation-duration:1.5s]">
+          |
+        </span>
       </p>
-      <div className="mt-3 flex flex-wrap gap-3">
-        {["developer", "teacher", "community"].map((id) => {
-          const isSelected = selected === id;
-          const isHovered = hoverId === id;
-          return (
-            <button
-              key={id}
-              onClick={() => setSelected(isSelected ? null : id)}
-              onMouseEnter={() => setHoverId(id)}
-              onMouseLeave={() => setHoverId(null)}
-              aria-pressed={isSelected}
-              style={{
-                fontFamily: FONT_MONO,
-                fontSize: 13,
-                color: isSelected ? "#fff" : isHovered ? C.accent : C.ink,
-                background: isSelected ? C.accent : "transparent",
-                border: `1px solid ${isSelected || isHovered ? C.accent : C.line}`,
-                padding: "8px 14px",
-                transform: isHovered && !isSelected && !reduced ? "translateY(-2px)" : "translateY(0)",
-                boxShadow: isHovered && !isSelected && !reduced ? "0 4px 10px rgba(54,84,255,0.15)" : "none",
-                transition: reduced ? "none" : "all 0.15s ease",
-              }}
-            >
-              [ {id === "community" ? "community builder" : id} ]
-            </button>
-          );
-        })}
+
+      {/* 2. Nuevo contenedor de etiquetas (Status & Roles) */}
+      <div className="flex flex-wrap items-center gap-3 mt-8">
+        
+        {/* Etiqueta Destacada: Open to work */}
+        <div
+          className="flex items-center gap-2 backdrop-blur-md bg-green-50/40 border border-green-200/50 transition-colors cursor-default"
+          style={{
+            color: "#15803d", // Verde más oscuro para contraste
+            fontFamily: FONT_MONO,
+            fontSize: 13,
+            padding: "6px 14px",
+            borderRadius: 9999, // Bordes completamente redondeados estilo 'pill'
+          }}
+        >
+          {/* Animación del punto verde */}
+          <span className="relative flex h-2.5 w-2.5">
+            <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75"></span>
+            <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-green-500"></span>
+          </span>
+          Open to work
+        </div>
+
+        {/* Etiquetas de Roles mapeadas */}
+        {ROLES.map((role) => (
+          <div
+            key={role}
+            className="backdrop-blur-md bg-white/30 border border-white/60 hover:bg-white/50 transition-colors cursor-default"
+            style={{ 
+              fontFamily: FONT_MONO, 
+              fontSize: 13, 
+              color: C.ink, 
+              padding: "6px 14px", 
+              borderRadius: 9999 
+            }}
+          >
+            {role}
+          </div>
+        ))}
+      </div>
+
+      {/* Who I am */}
+      <div className="grid md:grid-cols-12 gap-12 items-center mt-24">
+        <div className="md:col-span-7 space-y-5">
+          <h2 style={{ fontFamily: FONT_SERIF, fontStyle: "italic", fontSize: 30, color: C.ink }}>
+            Who I am
+          </h2>
+          {ABOUT.bio.map((p, i) => (
+            <p key={i} style={{ fontFamily: FONT_BODY, fontSize: 16, color: C.inkSoft, lineHeight: 1.7 }}>
+              {p}
+            </p>
+          ))}
+        </div>
+
+        <div className="md:col-span-5 relative h-[420px] hidden md:block">
+          <div className="photo-polaroid absolute top-0 left-0 w-44 -rotate-6 z-10">
+            <img src={heroPhoto} alt="Building" className="w-full h-44 object-cover grayscale" style={{ display: "block" }} />
+            <span style={{ fontFamily: FONT_SERIF, fontStyle: "italic", fontSize: 14, display: "block", marginTop: 6 }}>
+              Building.
+            </span>
+          </div>
+
+          <div className="sticker absolute bottom-6 right-0 w-56 rotate-3 z-20 p-5">
+            <h3 style={{ fontFamily: FONT_SERIF, fontSize: 20, marginBottom: 6, color: C.ink }}>
+              {PROYECTO_ADA.title}
+            </h3>
+            <p style={{ fontFamily: FONT_MONO, fontSize: 12, color: C.inkSoft, lineHeight: 1.6 }}>
+              {PROYECTO_ADA.body}
+            </p>
+          </div>
+        </div>
       </div>
 
       <CurrentlyStrip reduced={reduced} />
-    </section>
+    </header>
   );
 }

@@ -1,15 +1,30 @@
 export const FACETS = {
   developer: {
-    lines: ["I build.", "I solve.", "I turn ideas into software."],
-    tag: "Laravel · Angular · Python · APIs",
+    headline: "I build.",
+    body: [
+      "Web applications, APIs and digital tools that",
+      "turn real-world problems into useful-software.",
+    ],
+    cta: "professional experience",
+    ctaTarget: "build",
   },
   teacher: {
-    lines: ["I teach.", "I simplify.", "I help ideas click."],
-    tag: "Python · pygame · PyQt5 · pandas",
+    headline: "I teach.",
+    body: [
+      "Programming, AI, data, and",
+      "creative problem solving.",
+    ],
+    cta: "teaching",
+    ctaTarget: "teach",
   },
   community: {
-    lines: ["I create spaces.", "I connect people.", "I make room for more voices."],
-    tag: "Workshops · mentorship · girls in tech",
+    headline: "I empower.",
+    body: [
+      "Through Proyecto Ada, I empower girls to",
+      "explore technology and build their own ideas.",
+    ],
+    cta: "community",
+    ctaTarget: "care",
   },
 };
 

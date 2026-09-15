@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { AnimatePresence, motion } from "framer-motion";
-import { C, FONT_MONO } from "../theme";
+import { C, FONT_BODY, FONT_MONO } from "../theme";
 import { NAV } from "../data/nav";
 import { LIKES } from "../data/likes";
 
@@ -27,17 +27,17 @@ export default function Nav({ likesOpen, setLikesOpen }) {
         top: 0,
         zIndex: 40,
         background: `${C.paper}E6`,
-        backdropFilter: "blur(6px)",
-        borderBottom: `1px solid ${C.line}`,
+        backdropFilter: "blur(12px)",
+        //borderBottom: `1px solid ${C.line}`,
       }}
       className="w-full"
     >
       <div className="max-w-5xl mx-auto flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 px-6 py-4">
         <div className="flex items-center gap-3" style={{ position: "relative" }}>
-          <a href="#top" style={{ fontFamily: FONT_MONO, color: C.ink, fontSize: 13 }}>
+          <a href="#top" style={{ fontFamily: FONT_BODY, color: C.ink, fontSize: 13 }}>
             lauradaniela.dev
           </a>
-          <button
+          {/*<button
             onClick={() => setLikesOpen(!likesOpen)}
             onMouseEnter={() => setHintHover(true)}
             onMouseLeave={() => setHintHover(false)}
@@ -56,7 +56,7 @@ export default function Nav({ likesOpen, setLikesOpen }) {
             }}
           >
             ?
-          </button>
+          </button> */}
           <AnimatePresence>
             {hintHover && !likesOpen && (
               <motion.span
@@ -89,7 +89,7 @@ export default function Nav({ likesOpen, setLikesOpen }) {
               <a
                 href={`#${n.id}`}
                 style={{
-                  fontFamily: FONT_MONO,
+                  fontFamily: FONT_BODY,
                   fontSize: 12,
                   color: active === n.id ? C.ink : C.inkSoft,
                   borderBottom: active === n.id ? `2px solid ${C.accent}` : "2px solid transparent",
