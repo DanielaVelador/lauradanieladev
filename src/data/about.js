@@ -12,7 +12,7 @@ export const ABOUT = {
 export const ROLES = ["Frontend Developer", "Programming Instructor"];
 
 export const PROYECTO_ADA = {
-  title: "Proyecto Ada",
+  title: "Proyecto Ada 🧚🏻‍♀️",
   body:
     "Co-founder. An initiative created alongside fellow women engineers to mentor young girls and bring them closer to the fundamentals of programming. Community matters.",
 };

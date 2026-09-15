@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { C, FONT_SERIF, FONT_BODY, FONT_MONO } from "../theme";
 import { ABOUT, ROLES, PROYECTO_ADA } from "../data/about";
-import heroPhoto from "../assets/hero.png";
+import heroPhoto from "../assets/polaroid.jpg";
 import profilePhoto from "../assets/dany-b.png";
 import CurrentlyStrip from "./shared/CurrentlyStrip";
 
@@ -23,6 +23,39 @@ export default function Hero({ reduced }) {
     return () => clearInterval(typingInterval);
   }, [fullText]);
 
+  // Función para un scroll fluido y personalizado
+  const handleSmoothScroll = (e) => {
+    e.preventDefault();
+    const target = document.getElementById("who-i-am");
+    
+    if (target) {
+      const targetPosition = target.getBoundingClientRect().top + window.scrollY;
+      const startPosition = window.scrollY;
+      const distance = targetPosition - startPosition;
+      const duration = 1200; // Duración en milisegundos (1200 = 1.2 segundos). ¡Cámbialo a tu gusto!
+      let start = null;
+
+      // Función matemática para suavizar la aceleración y desaceleración (easeInOutCubic)
+      const animation = (currentTime) => {
+        if (start === null) start = currentTime;
+        const timeElapsed = currentTime - start;
+        const progress = Math.min(timeElapsed / duration, 1);
+        
+        // Curva de aceleración: empieza lento, se acelera, y termina lento
+        const ease = progress < 0.5 
+          ? 4 * progress * progress * progress 
+          : 1 - Math.pow(-2 * progress + 2, 3) / 2;
+          
+        window.scrollTo(0, startPosition + distance * ease);
+        
+        if (timeElapsed < duration) {
+          requestAnimationFrame(animation);
+        }
+      };
+      
+      requestAnimationFrame(animation);
+    }
+  };
   return (
     <>
       <header id="top" className="max-w-5xl mx-auto w-full px-6 relative min-h-screen flex flex-col justify-center pb-20">
@@ -124,7 +157,9 @@ export default function Hero({ reduced }) {
 
         {/* 3. RATÓN DE SCROLL: Subido con 'bottom-20' en lugar de 'bottom-8' */}
         <div className="absolute bottom-20 left-1/2 -translate-x-1/2 flex flex-col items-center">
-          <a href="#who-i-am" className="flex flex-col items-center gap-2 opacity-70 hover:opacity-100 transition-opacity">
+          <a href="#who-i-am" 
+          onClick={handleSmoothScroll}
+          className="flex flex-col items-center gap-2 opacity-70 hover:opacity-100 transition-opacity">
             <div className="w-6 h-10 backdrop-blur-md bg-white/30 border border-gray-300/60 rounded-full flex justify-center pt-1.5 shadow-sm">
               <div className="w-1 h-2.5 bg-gray-400 rounded-full animate-bounce"></div>
             </div>
@@ -152,9 +187,9 @@ export default function Hero({ reduced }) {
 
           <div className="md:col-span-5 relative h-[420px] hidden md:block">
             <div className="photo-polaroid absolute top-0 left-0 w-44 -rotate-6 z-10">
-              <img src={heroPhoto} alt="Building" className="w-full h-44 object-cover grayscale" style={{ display: "block" }} />
+              <img src={heroPhoto} alt="Laura Daniela" className="w-full h-44 object-cover grayscale" style={{ display: "block" }} />
               <span style={{ fontFamily: FONT_SERIF, fontStyle: "italic", fontSize: 14, display: "block", marginTop: 6 }}>
-                Building.
+                Hello there :)
               </span>
             </div>
 

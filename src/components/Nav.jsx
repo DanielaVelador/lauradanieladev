@@ -85,7 +85,7 @@ export default function Nav() {
           className="absolute bottom-10 opacity-60"
           style={{ fontFamily: FONT_MONO, fontSize: 12, color: C.inkSoft }}
         >
-          hola@lauradaniela.dev
+          @lauradaniela.dev
         </div>
       </div>
     </>
