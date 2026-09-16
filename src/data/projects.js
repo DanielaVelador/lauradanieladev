@@ -29,14 +29,14 @@ export const PROJECTS = [
     link: "https://space.kody.mx",
   },
   {
-    id: "03",
-    category: "work",
-    title: "Coordinación General de Vinculación",
-    tags: ["PHP", "Tailwind CSS", "Docker"],
+    id: "01",
+    category: "project",
+    title: "Talent Pool Platform",
+    tags: ["System Architecture", "Laravel", "Docker"],
     date: "Aug 2025 - Dec 2025",
-    image: "/images/vinculacion-work.png",
+    image: "/images/tp.png",
     role: "Software Engineer",
-    description: "Directed a team of interns to modernize a legacy WordPress system, redesigning the architecture into a maintainable, containerized environment.",
+    description: "Maintained a legacy WordPress platform while researching and architecting a scalable, containerized roadmap for its modernization.",
     achievements: [
       "Eliminated cascading bugs caused by legacy plugin sprawl.",
       "Delivered a fully standardized and reproducible containerized Docker environment for phase one."
@@ -83,11 +83,12 @@ export const PROJECTS = [
     ]
   },
   {
-    id: "01",
+    id: "02",
     category: "project",
     title: "Inventory & Access Management System",
     tags: ["Angular", "Laravel", "MongoDB"],
     date: "2026",
+    image: "/images/inventory.jpg",
     role: "Full-Stack Developer",
     description: "Built a full CRUD system for managing products, users, and role-based profiles with authorization, secure auth, and exportable reports.",
     achievements: [
@@ -96,8 +97,8 @@ export const PROJECTS = [
     ]
   },
   {
-    id: "02",
-    category: "project",
+    id: "01",
+    category: "playground",
     title: "CAPTCHA Image Recognition",
     tags: ["CNN", "LSTM", "ResNet", "Deep Learning"],
     date: "2025",

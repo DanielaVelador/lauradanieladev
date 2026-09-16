@@ -4,10 +4,13 @@ import { ABOUT, ROLES, PROYECTO_ADA } from "../data/about";
 import heroPhoto from "../assets/polaroid.jpg";
 import profilePhoto from "../assets/dany-b.png";
 import CurrentlyStrip from "./shared/CurrentlyStrip";
+import ToolkitFolder from "./ToolkitFolder";
+import { useLanguage } from "../context/LanguageContext";
 
 export default function Hero({ reduced }) {
+  const { lang } = useLanguage();
   const [displayedText, setDisplayedText] = useState("");
-  const fullText = ABOUT.tagline;
+  const fullText = ABOUT[lang].tagline;
 
   useEffect(() => {
     let currentIndex = 0;
@@ -73,7 +76,7 @@ export default function Hero({ reduced }) {
             <h1 style={{ fontFamily: FONT_SERIF, fontSize: "clamp(2.6rem, 7vw, 5rem)", lineHeight: 1.05, color: C.ink }}>
               Laura Daniela
               <br />
-              <span style={{ fontStyle: "italic", color: C.inkSoft }}>Software Engineer.</span>
+              <span style={{ fontStyle: "italic", color: C.inkSoft }}>{ABOUT[lang].role}</span>
             </h1>
 
             <p
@@ -107,10 +110,10 @@ export default function Hero({ reduced }) {
                   <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75"></span>
                   <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-green-500"></span>
                 </span>
-                Open to work
+                {lang === "EN" ? "Open to work" : "Disponible"}
               </div>
 
-              {ROLES.map((role) => (
+              {ROLES[lang].map((role) => (
                 <div
                   key={role}
                   className="backdrop-blur-md bg-white/30 border border-white/60 hover:bg-white/50 transition-colors cursor-default"
@@ -142,7 +145,7 @@ export default function Hero({ reduced }) {
               className="sticker absolute -top-8 -right-8 rotate-6 px-4 py-2 rounded-full whitespace-nowrap"
               style={{ fontFamily: FONT_MONO, fontSize: 12, color: C.inkSoft, zIndex: 20 }}
             >
-              📍 {ABOUT.location}
+              📍 {ABOUT[lang].location}
             </div>
             
             <img 
@@ -176,9 +179,9 @@ export default function Hero({ reduced }) {
           
           <div className="md:col-span-7 space-y-5">
             <h2 style={{ fontFamily: FONT_SERIF, fontStyle: "italic", fontSize: 30, color: C.ink }}>
-              Who I am
+              {ABOUT[lang].whoIAm}
             </h2>
-            {ABOUT.bio.map((p, i) => (
+            {ABOUT[lang].bio.map((p, i) => (
               <p key={i} style={{ fontFamily: FONT_BODY, fontSize: 16, color: C.inkSoft, lineHeight: 1.7 }}>
                 {p}
               </p>
@@ -195,18 +198,20 @@ export default function Hero({ reduced }) {
 
             <div className="sticker absolute bottom-6 right-0 w-56 rotate-3 z-20 p-5">
               <h3 style={{ fontFamily: FONT_SERIF, fontSize: 20, marginBottom: 6, color: C.ink }}>
-                {PROYECTO_ADA.title}
+                {PROYECTO_ADA[lang].title}
               </h3>
               <p style={{ fontFamily: FONT_MONO, fontSize: 12, color: C.inkSoft, lineHeight: 1.6 }}>
-                {PROYECTO_ADA.body}
+                {PROYECTO_ADA[lang].body}
               </p>
             </div>
+           <ToolkitFolder /> 
           </div>
+          
           
         </div>
       </section>
 
-      <CurrentlyStrip reduced={reduced} />
+      {/*<CurrentlyStrip reduced={reduced} />*/}
     </>
   );
 }
