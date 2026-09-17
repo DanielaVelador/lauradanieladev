@@ -11,6 +11,7 @@ import Footer from "./Footer";
 import CursorGlow from "./CursorGlow";
 import { C } from "../theme";
 import { LanguageProvider } from "../context/LanguageContext";
+import ScrollToTop from "../components/ScrolltoTop";
 
 
 export default function Portfolio() {
@@ -25,9 +26,9 @@ export default function Portfolio() {
       <Hero reduced={reduced} />
       <BuildSection reduced={reduced} />
       <ExperienceSection reduced={reduced} />
-      <BeyondSection reduced={reduced} />
       <TalkSection />
       <Footer />
+      <ScrollToTop />
     </div>
     </LanguageProvider>
   );

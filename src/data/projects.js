@@ -2,6 +2,20 @@ export const PROJECTS = [
   {
     id: "01",
     category: "work",
+    title: "Sprout Academia",
+    tags: ["Minecraft Education"],
+    date: "Current",
+    //image: "/images/algorithmics-work.png",
+    role: "Online Coding Instructor",
+    description: "Teaching foundational programming and computational thinking to young learners through interactive Python and Scratch lessons.",
+    achievements: [
+      "Deliver engaging remote coding classes focused on Python, Scratch, and computational logic.",
+      "Guide young students through structured programming exercises and interactive projects."
+    ]
+  },
+  {
+    id: "02",
+    category: "work",
     title: "Algorithmics",
     tags: ["Python", "Roblox Studio", "Scratch"],
     date: "Aug 2025 - Aug 2026",
@@ -13,8 +27,8 @@ export const PROJECTS = [
       "Ensured consistent completion of 4 custom projects per student by adapting difficulty organically."
     ]
   },
-  {
-    id: "02",
+    {
+    id: "03",
     category: "work",
     title: "Kody Academy",
     tags: ["HTML", "CSS", "JavaScript", "PHP"],
@@ -28,9 +42,9 @@ export const PROJECTS = [
     ],
     link: "https://space.kody.mx",
   },
-  {
-    id: "01",
-    category: "project",
+    {
+    id: "04",
+    category: "work",
     title: "Talent Pool Platform",
     tags: ["System Architecture", "Laravel", "Docker"],
     date: "Aug 2025 - Dec 2025",
@@ -42,8 +56,9 @@ export const PROJECTS = [
       "Delivered a fully standardized and reproducible containerized Docker environment for phase one."
     ]
   },
-  {
-    id: "04",
+
+    {
+    id: "05",
     category: "work",
     title: "Nebusens",
     tags: ["CodeIgniter", "JavaScript", "Node.js"],
@@ -55,8 +70,8 @@ export const PROJECTS = [
       "Significantly improved real-time alert delivery speed compared to the previous email system."
     ]
   },
-  {
-    id: "05",
+    {
+    id: "06",
     category: "work",
     title: "Payfri Wallet",
     tags: ["Microsoft Planner", "Project Management"],
@@ -70,7 +85,7 @@ export const PROJECTS = [
     ]
   },
   {
-    id: "06",
+    id: "07",
     category: "work",
     title: "Dirección General de Patrimonio Universitario",
     tags: ["System Architecture", "Relational Databases"],
@@ -80,6 +95,20 @@ export const PROJECTS = [
     achievements: [
       "Delivered a development-ready architecture and complete system mockup.",
       "Successfully structured the legacy data workflows and handed off the project for implementation."
+    ]
+  },
+  {
+    id: "01",
+    category: "project",
+    title: "Talent Pool Platform",
+    tags: ["System Architecture", "Laravel", "Docker"],
+    date: "Aug 2025 - Dec 2025",
+    image: "/images/tp.png",
+    role: "Software Engineer",
+    description: "Maintained a legacy WordPress platform while researching and architecting a scalable, containerized roadmap for its modernization.",
+    achievements: [
+      "Eliminated cascading bugs caused by legacy plugin sprawl.",
+      "Delivered a fully standardized and reproducible containerized Docker environment for phase one."
     ]
   },
   {

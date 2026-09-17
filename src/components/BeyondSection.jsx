@@ -3,7 +3,7 @@ import { AnimatePresence, motion } from "framer-motion";
 import { C, FONT_DISPLAY, FONT_MONO } from "../theme";
 import { TEACH_TERMS } from "../data/teachTerms";
 import { TIMELINE } from "../data/timeline";
-import SectionEyebrow from "./shared/SectionEyebrow";
+
 
 export default function BeyondSection({ reduced }) {
   return (

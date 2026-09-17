@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { C, FONT_SERIF, FONT_MONO } from "../theme";
 
@@ -11,17 +11,36 @@ const TOOLKIT = [
 
 export default function ToolkitFolder() {
   const [isOpen, setIsOpen] = useState(false);
+  const [isPopping, setIsPopping] = useState(false); // 1. Nuevo estado para el salto
+
+  // 2. Escuchar el evento que manda el menú
+  useEffect(() => {
+    const handlePop = () => {
+      setIsPopping(true);
+      setTimeout(() => setIsPopping(false), 800); 
+    };
+
+    window.addEventListener("pop-toolkit", handlePop);
+    return () => window.removeEventListener("pop-toolkit", handlePop);
+  }, []);
 
   return (
     <>
       {/* EL FOLDER EN EL "ESCRITORIO" */}
       <motion.button
         onClick={() => setIsOpen(true)}
-        whileHover={{ scale: 1.05, rotate: -2 }}
+        whileHover={{ scale: 1.05, rotate: 6 }} 
         whileTap={{ scale: 0.95 }}
+        // 3. Añadimos la animación aquí. Usamos 10 de base porque esa era tu inclinación original.
+        animate={
+          isPopping 
+            ? { scale: [1, 1.3, 1], rotate: [10, -5, 20, 5, 10] } 
+            : { scale: 1, rotate: 10 }
+        }
+        transition={{ duration: 0.6, type: "spring", bounce: 0.5 }}
         className="absolute z-30 cursor-pointer drop-shadow-md"
-        // Ajusta top/left según dónde quieras ponerlo en relación a la polaroid
-        style={{ top: "60%", left: "12%", rotate: "10deg", zIndex: 15 }} 
+        // NOTA: Quité el 'rotate: "10deg"' de aquí porque ahora lo controla Framer Motion en 'animate'
+        style={{ top: "60%", left: "12%", zIndex: 15 }} 
         aria-label="Open Toolkit"
       >
         {/* Ícono de Folder estilo Manila (SVG) */}

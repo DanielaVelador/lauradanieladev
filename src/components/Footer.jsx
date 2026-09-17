@@ -1,29 +1,23 @@
-import React, { useState } from "react";
-import { AnimatePresence, motion } from "framer-motion";
+import React from "react";
 import { C, FONT_MONO } from "../theme";
 
 export default function Footer() {
-  const [egg, setEgg] = useState(false);
   return (
-    <footer style={{ borderTop: `1px solid ${C.line}` }} className="py-8">
-      <button
-        onClick={() => setEgg(!egg)}
-        style={{ display: "block", margin: "0 auto", fontFamily: FONT_MONO, fontSize: 11, color: C.inkFaint }}
-      >
-        code, people & curiosity.
-      </button>
-      <AnimatePresence>
-        {egg && (
-          <motion.p
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            style={{ fontFamily: FONT_MONO, fontSize: 10, color: C.accent, textAlign: "center", marginTop: 6 }}
-          >
-            (you found this. hi. — dany)
-          </motion.p>
-        )}
-      </AnimatePresence>
+    <footer style={{ borderTop: `1px solid ${C.line}`, fontFamily: FONT_MONO }} className="py-8 px-6 max-w-6xl mx-auto">
+      
+      {/* Barra Inferior (Status y Copyright) */}
+      <div className="flex flex-col md:flex-row items-center justify-between text-xs" style={{ color: C.inkFaint }}>
+        
+        <div className="flex items-center gap-2 mb-4 md:mb-0">
+          Colima, MX
+        </div>
+
+        {/* Copyright */}
+        <div>
+          © {new Date().getFullYear()} Laura Daniela. All rights reserved.
+        </div>
+      </div>
+      
     </footer>
   );
 }
